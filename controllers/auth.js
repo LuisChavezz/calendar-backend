@@ -1,12 +1,13 @@
 const { response } = require('express')
+const { validationResult } = require('express-validator')
 
 const createUser = ( req, res = response ) => {
-  const { name } = req.body;
+  const errors =  validationResult( req );
 
-  if ( name.length < 4 ) {
+  if ( !errors.isEmpty() ) {
     return res.status(400).json({
       ok: false,
-      msg: 'El nombre debe ser de al menos 4 letras'
+      errors: errors.mapped()
     })
   }
 
@@ -17,14 +18,23 @@ const createUser = ( req, res = response ) => {
   })
 }
 
-const userLogin = ( _, res = response ) => {
+const userLogin = ( req, res = response ) => {
+  const errors =  validationResult( req );
+  
+  if ( !errors.isEmpty() ) {
+    return res.status(400).json({
+      ok: false,
+      errors: errors.mapped()
+    })
+  }
+
   res.json({
     ok: true,
     msg: 'login'
   })
 }
 
-const renewToken = ( _, res = response ) => {
+const renewToken = ( req, res = response ) => {
   res.json({
     ok: true,
     msg: 'renew'
