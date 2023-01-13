@@ -1,9 +1,13 @@
 const express = require('express');
+const { dbConnection } = require('./database/config');
 require('dotenv').config(); // paquete necesario para usar 'process.env'
 
 
 // Crear servidor de express
 const app = express();
+
+// Base de datos
+dbConnection();
 
 // Directorio público
 app.use( express.static('public') );

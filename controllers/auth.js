@@ -1,7 +1,7 @@
 const { response } = require('express')
 
 const createUser = ( req, res = response ) => {
-  res.json({
+  res.status(201).json({
     ok: true,
     msg: 'register',
     body: req.body
