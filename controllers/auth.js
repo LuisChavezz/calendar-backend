@@ -8,7 +8,6 @@ const createUser = async( req, res = response ) => {
 
   try {
     let user = await User.findOne({email})
-    
     if ( user ) { // Si ya existe el usuario (por email)
       return res.status(400).json({
         ok: false,
@@ -40,11 +39,45 @@ const createUser = async( req, res = response ) => {
 
 }
 
-const userLogin = ( req, res = response ) => {
-  res.json({
-    ok: true,
-    msg: 'login'
-  })
+const userLogin = async( req, res = response ) => {
+
+  const { email, password } = req.body
+
+  try {
+    const user = await User.findOne({email})
+    if ( !user ) { // Si no existe el usuario (por email)
+      return res.status(400).json({
+        ok: false,
+        msg: 'El usuario o contraseña son incorrectos'
+      })
+    }
+
+    // TODO: confirmar las contraseñas
+    const validPassword = bcrypt.compareSync( password, user.password )
+    if ( !validPassword ) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'El usuario o contraseña son incorrectos'
+      })
+    }
+
+    // TODO: Generar Json Web Token (JWT)
+
+    
+    res.json({
+      ok: true,
+      uid: user._id,
+      name: user.name
+    })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: 'Error!'
+    })    
+  }
+
 }
 
 const renewToken = ( req, res = response ) => {
