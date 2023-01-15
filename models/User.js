@@ -8,7 +8,7 @@ const UserSchema = Schema({
   email: {
     type: String,
     require: true,
-    unique: true
+    unique: true // Solo puede haber un registro con el mismo correo
   },
   password: {
     type: String,
