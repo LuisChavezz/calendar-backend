@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const { dbConnection } = require('./database/config');
 require('dotenv').config(); // paquete necesario para usar 'process.env'
 
@@ -8,6 +9,9 @@ const app = express();
 
 // Base de datos
 dbConnection();
+
+// CORS
+app.use(cors())
 
 // Directorio público
 app.use( express.static('public') );
