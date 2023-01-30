@@ -11,13 +11,13 @@ const { validateJWT } = require('../middlewares/validate-jwt');  // validación 
 const { getEvents, createEvent, updateEvent, deleteEvent } = require('../controllers/events');
 
 // Validación del JWT
-
+router.use( validateJWT ) // * Cualquier petición a continuación requerirá la validación del token
 
 // Get events
-router.get('/', validateJWT, getEvents)
-router.post('/', validateJWT, createEvent)
-router.put('/', validateJWT, updateEvent)
-router.delete('/', validateJWT, deleteEvent)
+router.get('/', getEvents)
+router.post('/', createEvent)
+router.put('/', updateEvent)
+router.delete('/', deleteEvent)
 
 
 module.exports = router;
