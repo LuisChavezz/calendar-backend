@@ -25,13 +25,21 @@ router.post(
     check('title', 'El título es obligatorio').not().isEmpty(),
     check('start', 'Fecha de inicio es obligatoria').custom( isDate ),
     check('end', 'Fecha de fin es obligatoria').custom( isDate ),
-    // check('start', 'Fecha de inicio es obligatoria').,
     validateFields
   ],
   createEvent
 )
 
-router.put('/', updateEvent)
+router.put(
+  '/:id', 
+  [
+    check('title', 'El título es obligatorio').not().isEmpty(),
+    check('start', 'Fecha de inicio es obligatoria').custom( isDate ),
+    check('end', 'Fecha de fin es obligatoria').custom( isDate ),
+    validateFields
+  ],
+  updateEvent
+)
 
 router.delete('/', deleteEvent)
 
