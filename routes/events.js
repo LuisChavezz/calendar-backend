@@ -41,7 +41,7 @@ router.put(
   updateEvent
 )
 
-router.delete('/', deleteEvent)
+router.delete('/:id', deleteEvent)
 
 
 module.exports = router;
